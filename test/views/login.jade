@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  p 登录
+  form(action="/login" method="get")
+    div
+      label 手机号码
+      input(name="phone")
+    div
+      label 密码
+      input(name="password")
+    div
+      button(type="submit") 提交
