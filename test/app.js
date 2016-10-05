@@ -13,9 +13,9 @@ var app = express();
 
 //MongoDB session
 const session = require('express-session');
-//const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
 //redis session
-const RedisStore = require('connect-redis')(session);
+//const RedisStore = require('connect-redis')(session);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,36 +29,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-  secret: 'jfhuang',
-  cookie: {
-    maxAge: 1000*60*60*24*30
-  },
-  resave: false,
-  saveUninitialized: true,
-  store: new RedisStore({
-    //ttl: 7*24*60*60,
-    host: '127.0.0.1',
-    port: '6379',
-    db: 0,
-    pass: '123456'
-  })
-}));
 //app.use(session({
-//  secret: 'jianfeng_huang',
-//  key: _dbsetting.db,
+//  secret: 'jfhuang',
 //  cookie: {
 //    maxAge: 1000*60*60*24*30
 //  },
 //  resave: false,
 //  saveUninitialized: true,
-//  store: new MongoStore({
-//    //db: _dbsetting.db,
-//    //host: _dbsetting.host,
-//    //port: _dbsetting.port
-//    url: 'mongodb://localhost/test'
+//  store: new RedisStore({
+//    //ttl: 7*24*60*60,
+//    host: '127.0.0.1',
+//    port: '6379',
+//    db: 0,
+//    pass: '123456'
 //  })
 //}));
+app.use(session({
+  secret: 'jianfeng_huang',
+  key: _dbsetting.db,
+  cookie: {
+    maxAge: 1000*60*60*24*30
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    //db: _dbsetting.db,
+    //host: _dbsetting.host,
+    //port: _dbsetting.port
+    url: 'mongodb://jianfeng_huang_test:ftry900127@119.29.82.54/test?authSource=test'
+  })
+}));
 
 app.use('/', routes);
 app.use('/users', users);
