@@ -10,9 +10,14 @@ var readFile = function(file, encoding){
     return deferred.promise;
 };
 console.log(111);
-readFile('../app.js', 'utf-8').then(function(data){
-    console.log(222);
+//readFile('./file1.txt', 'utf-8').then(function(data){
+//    console.log(data);
+//}, function (err) {
+//    console.log(err);
+//});
+Q.all([readFile('./file1.txt', 'utf-8'), readFile('./file2.txt', 'utf-8')]).then(function (values) {
+    console.log(values);
 }, function (err) {
-    console.log('222-1');
+    console.log(err);
 });
 console.log(333);
