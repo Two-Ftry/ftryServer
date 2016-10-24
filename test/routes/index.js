@@ -16,6 +16,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/toLogin');
     return;
   }
+  //console.log(qqqq.a);
   console.log('hhhh:' + req.session.userInfo.phone + ',' + req.session.userInfo.password);
   res.render('index', { title: 'Express' });
 });

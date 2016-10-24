@@ -60,10 +60,17 @@ app.use(session({
   })
 }));
 
+//
+app.use(function (req, res, next) {
+  console.log('路由钱拦截请求，可以做AOP...');
+  next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 
 app.use(function (req, res, next) {
+  console.log('应用级中间件test unlogin');
   if(!req.session){
     console.log('unlogin');
     return next(new Error('unlogin'));
@@ -73,6 +80,7 @@ app.use(function (req, res, next) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log('应用级中间件test 404');
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
@@ -84,6 +92,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
+    console.log('应用级中间件test 500 dev');
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -95,6 +104,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  console.log('应用级中间件test 500');
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
