@@ -46,7 +46,7 @@ var compare = function(x, y){
 
 //==================================================================
 var readFileAsync = function(filename, encoding){
-  return    Wind.Async.Task.create(function (t) {
+      return    Wind.Async.Task.create(function (t) {
       fs.readFile(filename, encoding, function (err, data) {
          if(err){
              t.complete('failure', err);
